@@ -3,21 +3,24 @@ import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
 void main() {
-  runApp(const HomeworkTrackerApp());
+  runApp(const MyApp());
 }
 
-class HomeworkTrackerApp extends StatelessWidget {
-  const HomeworkTrackerApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Homework Tracker',
-      theme: ThemeData(primarySwatch: Colors.blue,),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: const HomeScreen(),
     );
   }
 }
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -30,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
+      if (!mounted) return;
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
