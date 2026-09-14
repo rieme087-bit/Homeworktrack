@@ -15,13 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Homework Tracker',
-<<<<<<< HEAD
       theme: ThemeData(primarySwatch: Colors.red,),
-=======
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
->>>>>>> d81a9a233e1eed2debe6570596aa035b61d94c2f
       home: const SplashScreen(),
     );
   }
