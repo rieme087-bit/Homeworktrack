@@ -1,24 +1,32 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import 'home_screen.dart';  
+import 'main_navigation.dart';
 
 
 void main() {
-  runApp(const HomeworkTrackerApp());
+  runApp(const MyApp());
 }
 
-class HomeworkTrackerApp extends StatelessWidget {
-  const HomeworkTrackerApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Homework Tracker',
+<<<<<<< HEAD
       theme: ThemeData(primarySwatch: Colors.red,),
+=======
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+>>>>>>> d81a9a233e1eed2debe6570596aa035b61d94c2f
       home: const SplashScreen(),
     );
   }
 }
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -31,8 +39,11 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
+      if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(
+          builder: (context) => const MainNavigationScreen(),
+        ),
       );
     });
   }
