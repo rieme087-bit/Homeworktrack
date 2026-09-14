@@ -4,42 +4,40 @@ import 'assignment_list_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
-  
-  @overide  
 
+  @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+}
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
 
-  final list<Widget> _screens = [
-    const HomeScreen()
+  final List<Widget> _screens = [
+    const HomeScreen(),
     const AssignmentListScreen(),
-
   ];
 
-  void _onItemTapped (int index) {
-    setState((){
+  void _onItemTapped(int index) {
+    setState(() {
       _selectedIndex = index;
-
-    } );
+    });
   }
-}
+
   @override
-  Widget build(BuildContext){
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedindex],
+      body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex:_selectedIndex,
+        currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const[
-          BottomNavigationBarItem( 
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            Label: 'Home',
-           ),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label:'Assignments'
+            label: 'Assignments',
           ),
         ],
       ),
