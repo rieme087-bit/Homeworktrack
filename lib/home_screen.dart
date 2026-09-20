@@ -27,8 +27,8 @@ class HomeScreen extends StatelessWidget {
                 showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Hello'),
-                    content: const Text('This is a simple alert dialog.'),
+                    title: const Text('Warning'),
+                    content: const Text('you have one notification.'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),
