@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import '../home_screen.dart';
 import 'assignment_list_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {

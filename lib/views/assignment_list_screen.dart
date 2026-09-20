@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../presenters/assignment_presenter.dart';
 
 class AssignmentListScreen extends StatefulWidget {
   const AssignmentListScreen({super.key});
@@ -8,7 +9,7 @@ class AssignmentListScreen extends StatefulWidget {
 }
 
 class _AssignmentListScreenState extends State<AssignmentListScreen> {
-  final List<Map<String, dynamic>> _assignments = [];
+  final AssignmentPresenter _presenter = AssignmentPresenter();
 
   void _showAddAssignmentDialog() {
     String newAssignmentTitle = '';
@@ -37,10 +38,7 @@ class _AssignmentListScreenState extends State<AssignmentListScreen> {
                 final trimmedTitle = newAssignmentTitle.trim();
                 if (trimmedTitle.isNotEmpty) {
                   setState(() {
-                    _assignments.add({
-                      'title': trimmedTitle,
-                      'completed': false,
-                    });
+                    _presenter.addAssignment(trimmedTitle);
                   });
                 }
                 if (mounted) {
@@ -55,23 +53,20 @@ class _AssignmentListScreenState extends State<AssignmentListScreen> {
     );
   }
 
-  void _toggleCompleted(int index, bool? value) {
-    setState(() {
-      _assignments[index]['completed'] = value ?? false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final assignments = _presenter.assignments;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Assignments')),
       body: ListView.builder(
-        itemCount: _assignments.length,
+        itemCount: assignments.length,
         itemBuilder: (context, index) {
           return CheckboxListTile(
-            title: Text(_assignments[index]['title']),
-            value: _assignments[index]['completed'],
-            onChanged: (value) => _toggleCompleted(index, value),
+            title: Text(assignments[index].title),
+            value: assignments[index].iscompleted,
+            onChanged: (value) => _presenter.toggleCompleted(index, value),
           );
         },
       ),
