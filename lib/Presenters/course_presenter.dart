@@ -1,3 +1,5 @@
+import 'package:homework_tracker/models/course_model.dart';
+
 import '../models/assignment_model.dart';
 
 class CoursePresenter {
