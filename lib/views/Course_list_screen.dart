@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:homework_tracker/Presenters/course_presenter.dart';
-import '../presenters/assignment_presenter.dart';
 
 class CourseListScreen extends StatefulWidget {
   const CourseListScreen({super.key});
@@ -10,7 +9,7 @@ class CourseListScreen extends StatefulWidget {
 }
 
 class _CourseListScreenState extends State<CourseListScreen> {
-  final CoursePresenter Presenter = CoursePresenter();
+  final CoursePresenter presenter = CoursePresenter();
 
   void _showAddCourseDialog() {
     String name = '';
@@ -53,7 +52,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
                 final trimmedName = name.trim();
                 if (trimmedName.isNotEmpty) {
                   setState(() {
-                    Presenter.addCourse(trimmedName, description: description);
+                    presenter.addCourse(trimmedName, description: description);
                   });
                 }
                 if (mounted) {
@@ -71,7 +70,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
   @override
   Widget build(BuildContext context) {
     
-final courses = Presenter.courses;
+  final courses = presenter.courses;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Courses')),

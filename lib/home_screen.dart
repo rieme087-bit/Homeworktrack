@@ -27,12 +27,29 @@ class HomeScreen extends StatelessWidget {
                 showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Warning'),
-                    content: const Text('you have one notification.'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    title: Row(
+                      children: [
+                        Icon(
+                          Icons.notifications_active_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 30,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text('Heads up!'),
+                      ],
+                    ),
+                    content: const Text(
+                      'You have one new notification waiting for you.',
+                      style: TextStyle(fontSize: 16),
+                    ),
                     actions: [
-                      TextButton(
+                      FilledButton.icon(
                         onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('OK'),
+                        icon: const Icon(Icons.check_rounded),
+                        label: const Text('Got it'),
                       ),
                     ],
                   ),
@@ -45,4 +62,5 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
 }
