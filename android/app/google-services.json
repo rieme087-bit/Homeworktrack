@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "403982270660",
+    "project_id": "homework-tracker-32a9f",
+    "storage_bucket": "homework-tracker-32a9f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403982270660:android:3f386fb33a1ca23a420991",
+        "android_client_info": {
+          "package_name": "com.example.homeworktracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu9ecbOhhV2rCRchL8F_ERX5hWjU4KVlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
