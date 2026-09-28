@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../presenters/auth_presenter.dart';
-import 'login_screen.dart';
+import 'package:homework_tracker/presenters/auth_presenter.dart';
+import 'package:homework_tracker/views/login_screen.dart/Login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthPresenter _presenter = AuthPresenter();
@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final email = _presenter.getCurrentUserEmail() ?? 'Unknown User';
+    final email = _presenter.getcurrentUserEmail() ?? 'Unknown User';
 
     return Scaffold(
       appBar: AppBar(
@@ -53,3 +53,15 @@ class ProfileScreen extends StatelessWidget {
               icon: const Icon(Icons.logout),
               label: const Text('Logout'),
               style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:homework_tracker/views/profile_screen.dart/Profile_screen.dart';
 import '../home_screen.dart';
 import 'assignment_list_screen.dart';
 import 'course_list_screen.dart';
-import 'profile_screen.dart';
+
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -18,7 +19,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const HomeScreen(),
     const AssignmentListScreen(),
     const CourseListScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
