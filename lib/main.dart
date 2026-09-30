@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:homework_tracker/views/login_screen.dart/Login_screen.dart';
+import 'package:homework_tracker/views/login_screen.dart/login_screen.dart';
 import 'views/main_navigation.dart';
 
 

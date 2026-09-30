@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homework_tracker/presenters/auth_presenter.dart';
-import 'package:homework_tracker/views/login_screen.dart/Login_screen.dart';
+import 'package:homework_tracker/views/login_screen.dart/login_screen.dart';
 import 'package:homework_tracker/views/main_navigation.dart';
 
 

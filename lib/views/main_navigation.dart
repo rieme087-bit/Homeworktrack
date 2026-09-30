@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:homework_tracker/views/profile_screen.dart/Profile_screen.dart';
+import 'package:homework_tracker/views/profile_screen.dart/profile_screen.dart';
 import '../home_screen.dart';
 import 'assignment_list_screen.dart';
 import 'course_list_screen.dart';

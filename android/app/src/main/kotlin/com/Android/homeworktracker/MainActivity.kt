@@ -1,4 +1,4 @@
-package com.example.homework_tracker
+package com.Android.homeworktracker
 
 import io.flutter.embedding.android.FlutterActivity
 
