@@ -52,7 +52,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
                 final trimmedName = name.trim();
                 if (trimmedName.isNotEmpty) {
                   setState(() {
-                    presenter.addCourse(trimmedName, description: description);
+                    presenter.addCourse(trimmedName);
                   });
                 }
                 if (mounted) {

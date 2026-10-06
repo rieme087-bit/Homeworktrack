@@ -66,7 +66,7 @@ class _AssignmentListScreenState extends State<AssignmentListScreen> {
           return CheckboxListTile(
             title: Text(assignments[index].title),
             value: assignments[index].iscompleted,
-            onChanged: (value) => _presenter.toggleCompleted(index, value),
+            onChanged: (value) => _presenter.toggleCompleted(index),
           );
         },
       ),

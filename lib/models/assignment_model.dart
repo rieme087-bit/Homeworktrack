@@ -61,6 +61,10 @@ class Assignment {
         });
       }
   }
+
+  static Future<void> addAssignment(String title) async {}
+
+  static Future<Object?> fetchAssignments() async {}
 }
 
     
