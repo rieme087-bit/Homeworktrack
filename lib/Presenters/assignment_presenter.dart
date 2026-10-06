@@ -18,8 +18,8 @@ class AssignmentPresenter {
     _assignments.add(Assignment(title: title));
   }
 
-  Future<void> toggleCompleted(int index) async {
-    await Assignment.updateCompletionStatus(index, _assignments);
+  Future<void> toggleCompleted(int index, bool? value) async {
+    await Assignment.updateCompletionStatus(index as String, _assignments as bool);
     _assignments[index].iscompleted = !_assignments[index].iscompleted;
   }
 }

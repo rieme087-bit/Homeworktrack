@@ -10,6 +10,18 @@ class CourseListScreen extends StatefulWidget {
 
 class _CourseListScreenState extends State<CourseListScreen> {
   final CoursePresenter presenter = CoursePresenter();
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCourses();
+  }
+
+  Future<void> _loadCourses() async {
+    await presenter.loadCourses();
+    setState(() => _isLoading = false);
+  }
 
   void _showAddCourseDialog() {
     String name = '';
@@ -48,14 +60,10 @@ class _CourseListScreenState extends State<CourseListScreen> {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () {
-                final trimmedName = name.trim();
-                if (trimmedName.isNotEmpty) {
-                  setState(() {
-                    presenter.addCourse(trimmedName, description: description);
-                  });
-                }
-                if (mounted) {
+              onPressed: () async {
+                if (name.trim().isNotEmpty) {
+                  presenter.addCourse(name.trim(), description: description);
+                  setState(() {});
                   Navigator.of(context).pop();
                 }
               },
@@ -68,26 +76,31 @@ class _CourseListScreenState extends State<CourseListScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    
+Widget build(BuildContext context) {
   final courses = presenter.courses;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Courses')),
-      body: ListView.builder(
-        itemCount: courses.length,
-        itemBuilder: (context, index) {
-          final course = courses[index];
-          return ListTile(
-            title: Text(course.name),
-            subtitle: course.description != null ? Text(course.description!) : null,
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddCourseDialog,
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
+  return Scaffold(
+    appBar: AppBar(title: const Text('Courses')),
+    body:
+        _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : ListView.builder(
+              itemCount: courses.length,
+              itemBuilder: (context, index) {
+                final course = courses[index];
+                return ListTile(
+                  title: Text(course.name),
+                  subtitle:
+                      course.description != null
+                          ? Text(course.description!)
+                          : null,
+                ); // ListTile
+              },
+            ), // ListView.builder
+    floatingActionButton: FloatingActionButton(
+      onPressed: _showAddCourseDialog,
+      child: const Icon(Icons.add),
+    ), // FloatingActionButton
+  ); // Scaffold
+}
 }

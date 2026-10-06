@@ -2,12 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-
 class Assignment {
   final String title;
   bool iscompleted;
-  
-  Assignment({required this.title, this.iscompleted = false,});
+
+  Assignment({required this.title, this.iscompleted = false});
 
   static final _db = FirebaseDatabase.instance.ref();
   static final _auth = FirebaseAuth.instance;
@@ -61,7 +60,15 @@ class Assignment {
         });
       }
   }
+
+  static Future<Object?> fetchAssignments() async {}
+
+  static Future<void> addAssignment(String title) async {}
 }
+
+
+
+
 
     
     

@@ -9,4 +9,6 @@ class CoursePresenter {
   void addCourse(String name, {String? description}) {
     _courses.add(Course(name: name.trim(), description: description?.trim()));
   }
+
+  Future<void> loadCourses() async {}
 }
