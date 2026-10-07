@@ -62,7 +62,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
             TextButton(
               onPressed: () async {
                 if (name.trim().isNotEmpty) {
-                  presenter.addCourse(name.trim(), description: description);
+                  presenter.addCourse(name.trim(), description);
                   setState(() {});
                   Navigator.of(context).pop();
                 }
