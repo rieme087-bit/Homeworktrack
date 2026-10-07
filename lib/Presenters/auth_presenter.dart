@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '/models/auth_model.dart';
 
 class AuthPresenter {
@@ -5,6 +7,10 @@ class AuthPresenter {
 
   Future<String?> login(String email, String password) {
     return _model.login(email, password);
+  }
+
+  Future<String?> sendPasswordResetEmail(String email) {
+    return _model.sendPasswordResetEmail(email);
   }
 
   Future<String?> signUp(String email, String password) {
@@ -16,10 +22,4 @@ class AuthPresenter {
   Stream authStateChanges() => _model.authStateChanges();
 
   String? getcurrentUserEmail() => _model.currentUser?.email;
-
-
-  }
-
-
-
-
+}

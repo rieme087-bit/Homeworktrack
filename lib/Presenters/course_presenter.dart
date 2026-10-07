@@ -16,4 +16,6 @@ class CoursePresenter {
     await Course.addCourse(name, description);
     _courses.add(Course(name: name, description: description));
   }
+
+  Future<void> loadCourses() async {}
 }
