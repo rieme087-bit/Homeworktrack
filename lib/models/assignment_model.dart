@@ -8,6 +8,7 @@ class Assignment {
   final String courseName;
 
   Assignment({
+    this.id,
     required this.title,
     required this.courseName,
     this.iscompleted = false,
@@ -30,16 +31,16 @@ class Assignment {
       data.forEach((key, value) {
         final assignmentData = Map<String, dynamic>.from(value as Map);
         assignments.add(Assignment(
-          title: value['title'],
-          courseName: value['courseName'] ?? 'Unknown',
-          iscompleted: value['iscompleted'],
+          title: assignmentData['title'],
+          courseName: assignmentData['courseName'] ?? 'Unknown',
+          iscompleted: assignmentData['iscompleted'],
         ));
       });
     }
     return assignments;
   }
 
-  static Future<void> saveAssignment(Assignment assignment, String courseName) async {
+  static Future<String?> saveAssignment(Assignment assignment, String courseName) async {
     final userId = _auth.currentUser?.uid;
     if (userId == null) {
       return null;

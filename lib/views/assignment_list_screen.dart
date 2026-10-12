@@ -28,12 +28,10 @@ class _AssignmentListScreenState extends State<AssignmentListScreen> {
   }
 
   Future<void> _loadAssignments() async {
-  Future<void> _loadAssignments() async {
     await _presenter.loadAssignments();
 
-    setState(() => _isLoading = false);
-    _isLoading = false;
     _courseNames = _coursePresenter.courses.map((c) => c.name).toList();
+    setState(() => _isLoading = false);
   }
 
 
