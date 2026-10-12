@@ -6,8 +6,7 @@ class AssignmentPresenter {
   List<Assignment> get assignments => _assignments;
 
   Future<void> loadAssignments() async {
-    final List<Assignment> fetched =
-      (await Assignment.fetchAssignments()) as List<Assignment>;
+    final fetched = await Assignment.fetchAssignments();
     _assignments
       ..clear()
       ..addAll(fetched);
@@ -22,6 +21,4 @@ class AssignmentPresenter {
     await Assignment.updateCompletionStatus(index as String, value ?? false);
     _assignments[index].iscompleted = value ?? false;
   }
-
-
 }

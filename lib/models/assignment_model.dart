@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Assignment {
+  final String? id;
   final String title;
   bool iscompleted;
   final String courseName;
@@ -22,12 +22,13 @@ class Assignment {
       return [];
     }
 
-    final snapshot = await _db.child('assignments/userId').get();
+    final snapshot = await _db.child('assignments/$userId').get();
     final List<Assignment> assignments = [];
-    
+
     if (snapshot.exists) {
-      final data = Map<String, dynamic>.from(snapshot.value as Map);
+      final data = Map<Object?, Object?>.from(snapshot.value as Map);
       data.forEach((key, value) {
+        final assignmentData = Map<String, dynamic>.from(value as Map);
         assignments.add(Assignment(
           title: value['title'],
           courseName: value['courseName'] ?? 'Unknown',
@@ -41,7 +42,7 @@ class Assignment {
   static Future<void> saveAssignment(Assignment assignment, String courseName) async {
     final userId = _auth.currentUser?.uid;
     if (userId == null) {
-      return;
+      return null;
     }
 
     final newRef = _db.child('assignments/$userId').push();
@@ -50,25 +51,24 @@ class Assignment {
       'courseName' : courseName,
       'iscompleted': assignment.iscompleted,
     });
+    return newRef.key;
   }
-  static Future<void> updateCompletionStatus(String assignmentId, bool iscompleted) async {
+
+  static Future<void> updateCompletionStatus(
+    String assignmentId,
+    bool iscompleted,
+  ) async {
     final userId = _auth.currentUser?.uid;
-    if (userId == null) 
+    if (userId == null) {
       return;
+    }
 
-      final snapshot = await _db.child('assignments/$userId').get();
-      if (snapshot.exists) {
-        final data = Map<String, dynamic>.from(snapshot.value as Map);
-        final entry = data.entries.firstWhere((entry) => entry.key == assignmentId);
-        final ref = _db.child('assignments/$userId/${entry.key}');
-        final updatedStatus = iscompleted;
-        await ref.update({
-          'iscompleted': updatedStatus,
-        });
-      }
+    await _db
+        .child('assignments/$userId/$assignmentId')
+        .update({'iscompleted': iscompleted});
   }
 
-  static Future<Object?> fetchAssignments() async {}
+  static Future<List<Assignment>> fetchAssignments() => loadAssignments();
 
   static Future<void> addAssignment(String title, String courseName) async {}
 }

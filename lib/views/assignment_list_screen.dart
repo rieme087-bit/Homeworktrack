@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../presenters/assignment_presenter.dart';
 import '../Presenters/course_presenter.dart';
 import '../widgets/add_fab.dart';
@@ -21,11 +22,12 @@ class _AssignmentListScreenState extends State<AssignmentListScreen> {
   bool _isLoading = true;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _loadAssignments();
   }
 
+  Future<void> _loadAssignments() async {
   Future<void> _loadAssignments() async {
     await _presenter.loadAssignments();
 
@@ -33,6 +35,7 @@ class _AssignmentListScreenState extends State<AssignmentListScreen> {
     _isLoading = false;
     _courseNames = _coursePresenter.courses.map((c) => c.name).toList();
   }
+
 
   void _showAddAssignmentDialog() {
     String newAssignmentTitle = '';
