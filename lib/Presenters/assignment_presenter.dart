@@ -6,22 +6,29 @@ class AssignmentPresenter {
   List<Assignment> get assignments => _assignments;
 
   Future<void> loadAssignments() async {
-    final List<Assignment> fetched =
-      (await Assignment.fetchAssignments()) as List<Assignment>;
+    final fetched = await Assignment.fetchAssignments();
     _assignments
       ..clear()
       ..addAll(fetched);
   }
 
   Future<void> addAssignment(String title) async {
-    await Assignment.addAssignment(title);
-    _assignments.add(Assignment(title: title));
+    final id = await Assignment.addAssignment(title);
+    if (id != null) {
+      _assignments.add(Assignment(id: id, title: title));
+    }
   }
 
   Future<void> toggleCompleted(int index, bool? value) async {
-    await Assignment.updateCompletionStatus(index as String, _assignments as bool);
-    _assignments[index].iscompleted = !_assignments[index].iscompleted;
+    if (value == null || index < 0 || index >= _assignments.length) {
+      return;
+    }
+
+    final assignment = _assignments[index];
+    final id = assignment.id;
+    if (id != null) {
+      await Assignment.updateCompletionStatus(id, value);
+    }
+    assignment.iscompleted = value;
   }
-
-
 }
