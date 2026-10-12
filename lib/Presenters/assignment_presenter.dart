@@ -13,14 +13,14 @@ class AssignmentPresenter {
       ..addAll(fetched);
   }
 
-  Future<void> addAssignment(String title) async {
-    await Assignment.addAssignment(title);
-    _assignments.add(Assignment(title: title));
-  }
+  Future<void> addAssignment(String title, String courseName) async {
+  await Assignment.addAssignment(title, courseName);
+  _assignments.add(Assignment(title: title, courseName: courseName));
+}
 
   Future<void> toggleCompleted(int index, bool? value) async {
-    await Assignment.updateCompletionStatus(index as String, _assignments as bool);
-    _assignments[index].iscompleted = !_assignments[index].iscompleted;
+    await Assignment.updateCompletionStatus(index as String, value ?? false);
+    _assignments[index].iscompleted = value ?? false;
   }
 
 
