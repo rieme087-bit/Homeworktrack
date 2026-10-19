@@ -7,24 +7,34 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:homework_tracker/main.dart';
+import 'package:homework_tracker/widgets/add_fab.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const HomeworkTrackerApp());
+  testWidgets('AddFAB renders and triggers onPressed when tapped', (
+    WidgetTester tester,
+  ) async {
+    bool wasPressed = false;
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          floatingActionButton: AddFAB(
+            onPressed: () {
+              wasPressed = true;
+            },
+          ),
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify icon is present
+    expect(find.byIcon(Icons.add), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Tap the FAB
+    await tester.tap(find.byType(AddFAB));
+    await tester.pump(); // Allow tap to complete
+
+    // Confirm callback was triggered
+    expect(wasPressed, isTrue);
   });
 }

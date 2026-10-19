@@ -31,9 +31,10 @@ class Assignment {
       data.forEach((key, value) {
         final assignmentData = Map<String, dynamic>.from(value as Map);
         assignments.add(Assignment(
+          id: key.toString(),
           title: assignmentData['title'],
           courseName: assignmentData['courseName'] ?? 'Unknown',
-          iscompleted: assignmentData['iscompleted'],
+          iscompleted: assignmentData['iscompleted'] ?? false,
         ));
       });
     }
@@ -69,9 +70,23 @@ class Assignment {
         .update({'iscompleted': iscompleted});
   }
 
+  static Future<void> deleteAssignment(String assignmentId) async {
+    final userId = _auth.currentUser?.uid;
+    if (userId == null) {
+      return;
+    }
+
+    await _db.child('assignments/$userId/$assignmentId').remove();
+  }
+
   static Future<List<Assignment>> fetchAssignments() => loadAssignments();
 
-  static Future<void> addAssignment(String title, String courseName) async {}
+  static Future<String?> addAssignment(String title, String courseName) async {
+    return saveAssignment(
+      Assignment(title: title, courseName: courseName),
+      courseName,
+    );
+  }
 }
 
 

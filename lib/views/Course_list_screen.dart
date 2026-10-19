@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homework_tracker/Presenters/course_presenter.dart';
+import 'package:homework_tracker/models/course_model.dart';
 import 'package:homework_tracker/widgets/add_fab.dart';
 
 class CourseListScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
     
     showDialog(
       context: context,
-      builder: (context) {
+      builder: (dialogContext) {
         return AlertDialog(
           title: const Text('Add Course'),
           content: Column(
@@ -57,15 +58,16 @@ class _CourseListScreenState extends State<CourseListScreen> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(dialogContext).pop(),
               child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () async {
                 if (name.trim().isNotEmpty) {
-                  presenter.addCourse(name.trim(), description);
+                  await presenter.addCourse(name.trim(), description);
+                  if (!mounted || !dialogContext.mounted) return;
                   setState(() {});
-                  Navigator.of(context).pop();
+                  Navigator.of(dialogContext).pop();
                 }
               },
               child: const Text('Add'),
@@ -74,6 +76,32 @@ class _CourseListScreenState extends State<CourseListScreen> {
         );
       },
     );
+  }
+
+  Future<void> _confirmDeleteCourse(Course course) async {
+    final shouldDelete = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete course?'),
+        content: Text(
+          'Delete "${course.name}"? Its assignments will be kept.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldDelete != true) return;
+    await presenter.deleteCourse(course.id);
+    if (mounted) setState(() {});
   }
 
   @override
@@ -95,6 +123,11 @@ Widget build(BuildContext context) {
                       course.description != null
                           ? Text(course.description!)
                           : null,
+                  trailing: IconButton(
+                    tooltip: 'Delete course',
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () => _confirmDeleteCourse(course),
+                  ),
                 ); // ListTile
               },
             ), // ListView.builder

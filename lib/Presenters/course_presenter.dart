@@ -13,7 +13,14 @@ class CoursePresenter {
   }
 
   Future<void> addCourse(String name, String? description) async {
-    await Course.addCourse(name, description);
-    _courses.add(Course(name: name, description: description));
+    final id = await Course.addCourse(name, description);
+    if (id != null) {
+      _courses.add(Course(id: id, name: name, description: description));
+    }
+  }
+
+  Future<void> deleteCourse(String id) async {
+    await Course.deleteCourse(id);
+    _courses.removeWhere((course) => course.id == id);
   }
 }
