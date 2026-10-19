@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final totalAssignments = _presenter.assignments.length;
     final completedAssignments =
         _presenter.assignments.where((assignment) => assignment.iscompleted).length;
@@ -37,55 +38,96 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        //centerTitle: true,
         title: const Text('Homework Tracker'),
       ), // AppBar
-      body:
-          _loading
-              ? const Center(child: CircularProgressIndicator())
-              : Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Center(
-                      child: CircularPercentIndicator(
-                        radius: 120.0, // Larger size
-                        lineWidth: 14.0,
-                        percent: percent,
-                        center: Text(
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+              children: [
+                Text(
+                  'Your progress',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.4,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Keep up the momentum.',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey.shade700,
+                      ),
+                ),
+                const SizedBox(height: 28),
+                Center(
+                  child: CircularPercentIndicator(
+                    radius: 104,
+                    lineWidth: 12,
+                    percent: percent,
+                    center: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
                           '${(percent * 100).round()}%',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ), // TextStyle
-                        ), // Text
-                        progressColor: Colors.purple,
-                        backgroundColor: Colors.grey.shade300,
-                        animation: true,
-                        animationDuration: 800,
-                        footer: const Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('Assignments Completed'),
-                        ), // Padding
-                      ), // CircularPercentIndicator
-                    ), // Center
-                    const SizedBox(height: 40),
-                    Card(
-                      child: ListTile(
-                        title: const Text('Total Assignments'),
-                        trailing: Text('$totalAssignments'),
-                      ), // ListTile
-                    ), // Card
-                    Card(
-                      child: ListTile(
-                        title: const Text('Completed Assignments'),
-                        trailing: Text('$completedAssignments'),
-                      ), // ListTile
-                    ), // Card
-                  ],
-                ), // Column
-              ), // Padding
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '$completedAssignments of $totalAssignments',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: Colors.grey.shade700),
+                        ),
+                      ],
+                    ),
+                    progressColor: colorScheme.primary,
+                    backgroundColor: Colors.grey.shade300,
+                    animation: true,
+                    animationDuration: 800,
+                    footer: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'ASSIGNMENTS COMPLETED',
+                        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.1,
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 28),
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.assignment_outlined),
+                    title: const Text('Total Assignments'),
+                    trailing: Text(
+                      '$totalAssignments',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.check_circle_outline),
+                    title: const Text('Completed Assignments'),
+                    trailing: Text(
+                      '$completedAssignments',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
     ); // Scaffold
   }
 }

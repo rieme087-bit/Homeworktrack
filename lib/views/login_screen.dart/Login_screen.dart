@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (_errorMessage != null)
               Text(
                 _errorMessage!,
-                style: const TextStyle(color: Colors.red),
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
               ),
             TextField(
               controller: _emailController,

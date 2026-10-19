@@ -50,7 +50,10 @@ class _SignupScreenState extends State<SignupScreen> {
   child: Column(
     children: [
       if (_errorMessage != null)
-        Text(_errorMessage!, style: const TextStyle(color: Colors.red)),
+        Text(
+          _errorMessage!,
+          style: TextStyle(color: Theme.of(context).colorScheme.error),
+        ),
       TextField(
         controller: _emailController,
         decoration: const InputDecoration(labelText: 'Email'),

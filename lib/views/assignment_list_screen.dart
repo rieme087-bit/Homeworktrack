@@ -163,9 +163,8 @@ final displayedAssignments = assignments.where((assignment) {
           DropdownButton<String>(
             hint: const Text(
               'Filter by course',
-              style: TextStyle(color: Colors.white),
             ),
-            dropdownColor: Colors.blue[100],
+            dropdownColor: Theme.of(context).colorScheme.surface,
             value: _selectedCourseFilter,
             onChanged: (value) {
               setState(() {
